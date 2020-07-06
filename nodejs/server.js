@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const {addUser, getUserByOpenid, login, updUser, getUser, updUserStatus, updUserAddress} = require('./user');
 const manager = require('./manager');
+const monitored = require('./monitored');
 const {auth} = require('./auth');
 
 const app = new Koa();
@@ -102,6 +103,18 @@ router.get('/manager/find', async (ctx, next) => {
 
 router.post('/manager/add', async (ctx, next) => {
   const res = await manager.addManager(ctx.request.body);
+  ctx.response.type = 'application/json';
+  ctx.response.body = res;
+});
+
+router.post('/monitored/add', async (ctx, next) => {
+  const res = await monitored.add(ctx);
+  ctx.response.type = 'application/json';
+  ctx.response.body = res;
+});
+
+router.get('/monitored/find', async (ctx, next) => {
+  const res = await monitored.findById(ctx);
   ctx.response.type = 'application/json';
   ctx.response.body = res;
 });

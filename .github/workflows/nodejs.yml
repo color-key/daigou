@@ -1,0 +1,39 @@
+name: nodejs ci
+
+on:
+  push:
+    branches:
+      - nodejs
+
+jobs:
+  build-and-deploy-to-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Deploy nodejs to Server
+        uses: easingthemes/ssh-deploy@v2.1.2
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: '-rltgoDzvO --delete'
+          SOURCE: 'nodejs/'
+          REMOTE_HOST: ${{ secrets.SERVER_HOST_NAME }}
+          REMOTE_USER: ${{ secrets.SERVER_USER_NAME }}
+          TARGET: ${{ secrets.SERVER_NODEJS_TARGET }}
+
+      - name: ssh-agent
+        uses: webfactory/ssh-agent@v0.1.1
+        with:
+          ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
+        env:
+          SERVER_HOST_NAME: ${{ secrets.SERVER_HOST_NAME }}
+
+      - name: Setup knownhosts
+        run: ssh-keyscan ${{ secrets.SERVER_HOST_NAME }} >> ~/.ssh/known_hosts
+
+      - name: Run SSH Command To build nodejs server
+        run: ssh root@${{ secrets.SERVER_HOST_NAME }} "(docker stop daigou-nodejs || true) && (docker rm daigou-nodejs || true) && (docker rmi daigou-nodejs || true) && cd /fay/service/daigou/nodejs/ && docker build -t daigou-nodejs . && docker run --restart=always -d -p 3002:3000 --name daigou-nodejs daigou-nodejs"
+      
+
+  
