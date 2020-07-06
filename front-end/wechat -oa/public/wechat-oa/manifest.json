@@ -1,0 +1,17 @@
+{
+  "name": "代购",
+  "short_name": "代购",
+  "description": "为您提供商品监测和抢购服务",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/wechat-oa/static/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#263BE0",
+  "background_color": "#ffffff",
+  "start_url": "/wechat-oa/",
+  "display": "standalone"
+}
