@@ -36,7 +36,7 @@ export default function MyApp(props: Props) {
         <meta content="email=no" name="format-detection" />
         {/* <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" /> */}
         {/* <script src={`${PATH_PREFIX}/lib/judge-terminal-equipment.js`}/> */}
-        {/* <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script> */}
+        <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
       </Head>
       <Provider>
         <CssBaseline />
