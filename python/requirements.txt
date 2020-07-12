@@ -4,3 +4,4 @@ sanic_cors
 peewee
 redis
 requests
+lxml

@@ -9,9 +9,9 @@ class BaseService:
         pass
 
     @classmethod
-    def find_mongo_obj_with_id(cls, model: T, _id: str) -> type(T):
+    def find_obj_with_id(cls, model: T, _id: str) -> type(T):
         pass
 
     @classmethod
-    def find_mongo_obj_list_with(cls, model: T, **kwargs):
+    def find_obj_list_with(cls, model: T, **kwargs):
         pass
