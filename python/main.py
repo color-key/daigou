@@ -38,7 +38,7 @@ async def close_db(app, loop):
 
 # 每1分钟执行一次，更新查询商品详情
 # scheduler.add_job(Task.run_task_search_goods_detail, 'interval', seconds=60)
-# 每天 00:00:30 执行一次，更新商品库
+# 每天 00:00:30 执行一次， 更新商品库
 # scheduler.add_job(Task.run_task_update_goods,  'cron', hour=0, minute=30)
 scheduler.add_job(Task.run_task_update_goods,  'interval', seconds=20)
 
