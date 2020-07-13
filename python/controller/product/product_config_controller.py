@@ -6,6 +6,7 @@ from service.product.product_config_service import ProductConfigService
 
 
 class ProductConfigController(BasicController):
+
     @parameters(
         website_type=Check(type=int, null=False),
         name=Check(type=str, null=False),
@@ -20,3 +21,21 @@ class ProductConfigController(BasicController):
             return self.response_success()
         else:
             return self.response_fail(HttpCode.fail, value)
+
+    @parameters(
+        page=Check(type=int, null=False),
+        page_size=Check(type=int, null=False),
+        keyword=Check(type=str)
+    )
+    def list(self, params):
+        """ 查询商品监测分页列表 """
+        result = ProductConfigService.find_page(**params)
+        return self.response_success(result)
+
+    @parameters(
+        id=Check(type=int, null=False),
+    )
+    def delete(self, params):
+        """ 删除监控商品 """
+        ProductConfigService.delete(**params)
+        return self.response_success()
