@@ -12,7 +12,7 @@ from service.website.lotte_service import LotteService
 class GoodsService(BaseService):
 
     @classmethod
-    def find_page(cls, **params) -> (bool, any):
+    def find_page(cls, **params) -> dict:
         """ 查询商品分页列表 """
         page = params['page']
         page_size = params['page_size']

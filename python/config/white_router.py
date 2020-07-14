@@ -11,4 +11,6 @@ white_router_list = [
     '/api/goods/update_goods_by_config_id',
     '/api/goods/page',
     '/api/goods/find_detail_by_id',
+    '/api/user_goods/create',
+    '/api/user_goods/find_goods_page',
 ]

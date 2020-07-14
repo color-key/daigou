@@ -32,4 +32,21 @@ class MysqlExtend(object):
                     else:
                         dd[key] = value
                 return dd
+            elif isinstance(d, dict):
+                d_new = dict()
+                for key, value in d.items():
+                    if blacklist:
+                        if pop_keys and key in pop_keys:
+                            continue
+                    else:
+                        if pop_keys and key not in pop_keys:
+                            continue
+                    if isinstance(value, (date, datetime)):
+                        d_new[key] = value.strftime(date_format)
+                    else:
+                        d_new[key] = value
+                return d_new
+            else:
+                return d
+
         return process(data)

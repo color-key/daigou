@@ -24,7 +24,7 @@ class ProductConfigService(BaseService):
         return True, product_config
 
     @classmethod
-    def find_page(cls, **params) -> (bool, any):
+    def find_page(cls, **params) -> dict:
         page = params['page']
         page_size = params['page_size']
         keyword = params.get('keyword')

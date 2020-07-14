@@ -10,7 +10,7 @@ from model.user.user_notice_record import UserNoticeRecord
 
 def create_db():
     # appdef.db_purchase.create_tables([User, WebsiteInfo, ProductConfig, Goods, UserGoods, UserNoticeRecord])
-    appdef.db_purchase.create_tables([Goods])
+    appdef.db_purchase.create_tables([UserGoods, UserNoticeRecord])
 
 
 def init_user():

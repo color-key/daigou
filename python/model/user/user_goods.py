@@ -7,9 +7,11 @@ from datetime import datetime
 class UserGoods(BaseModel):
     """ 用户关注商品 """
     # 用户ID
-    user_id = CharField()
+    user_id = IntegerField()
+    user_name = CharField()
     # 商品ID
-    goods_id = CharField()
+    goods_id = IntegerField()
+    goods_name = CharField()
     # 是否被删除
     deleted = BooleanField(default=False)
     # 更新时间

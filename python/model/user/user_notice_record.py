@@ -8,9 +8,11 @@ from model import BaseModel
 class UserNoticeRecord(BaseModel):
     """ 用户消息通知记录 """
     # 用户ID
-    user_id = CharField()
+    user_id = IntegerField()
+    user_name = CharField()
     # 商品ID
-    goods_id = CharField()
+    goods_id = IntegerField()
+    goods_name = CharField()
     # 是否被删除
     deleted = BooleanField(default=False)
     # 更新时间

@@ -7,6 +7,7 @@ from config import appdef, appmode
 from controller.demo.demo_controller import DemoController
 from controller.product.goods_controller import GoodsController
 from controller.product.product_config_controller import ProductConfigController
+from controller.user.user_goods_controller import UserGoodsController
 from task.task import Task
 
 app = Sanic('purchase_service')
@@ -26,6 +27,8 @@ async def http_handler(request, module, action):
         process = ProductConfigController
     if module == 'goods':
         process = GoodsController
+    if module == 'user_goods':
+        process = UserGoodsController
     return process(request, action).process()
 
 
