@@ -2,7 +2,8 @@
 import math
 from typing import TypeVar
 
-from peewee import BaseModelSelect, SelectQuery, SelectBase
+# from peewee import BaseModelSelect, SelectQuery, SelectBase
+from peewee import SelectBase
 
 T = TypeVar('T')
 

@@ -30,7 +30,7 @@ class ProductConfigService(BaseService):
         keyword = params.get('keyword')
         conditions = (ProductConfig.deleted == 0,)
         if keyword:
-            conditions = ProductConfig.name.contains(keyword), conditions
+            conditions += (ProductConfig.name.contains(keyword),)
         query = ProductConfig.select().where(*conditions).order_by(-ProductConfig.create_time)
 
         total_page, count, page, query_list = cls.page_count_list_process(query, page, page_size)

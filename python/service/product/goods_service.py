@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 
+from libs.mysql_extend import MysqlExtend
 from model.product.goods import Goods
 from model.product.product_config import WebsiteTypeEnum, ProductConfig
 from model.user.user_goods import UserGoods
@@ -9,6 +10,37 @@ from service.website.lotte_service import LotteService
 
 
 class GoodsService(BaseService):
+
+    @classmethod
+    def find_page(cls, **params) -> (bool, any):
+        """ 查询商品分页列表 """
+        page = params['page']
+        page_size = params['page_size']
+        website_type = params.get('website_type')
+        keyword = params.get('keyword')
+
+        conditions = (Goods.deleted == 0,)
+        if website_type:
+            conditions += (Goods.website_type == website_type,)
+        if keyword:
+            conditions += (Goods.name.contains(keyword),)
+        query = Goods.select().where(*conditions).order_by(-Goods.update_time)
+
+        total_page, count, page, query_list = cls.page_count_list_process(query, page, page_size)
+        pc_list = MysqlExtend.mysql_to_python(query_list, pop_keys=['deleted'])
+        return dict(total_page=total_page, count=count, page=page, data_list=pc_list)
+
+    @classmethod
+    def search_goods_detail_by_id(cls, _id: int) -> bool:
+        """ 获取指定商品详情 """
+        goods = Goods.get_by_id(_id)
+        return cls.search_goods_detail(goods)
+
+    @classmethod
+    def update_goods_by_config_id(cls, _id: int):
+        """ 更新商品库，通过监测商品ID """
+        product_config = ProductConfig.get_by_id(_id)
+        cls.update_goods(product_config)
 
     @classmethod
     def update_goods(cls, product_config: ProductConfig):
@@ -24,6 +56,7 @@ class GoodsService(BaseService):
         if goods.website_type == WebsiteTypeEnum.lottedfs_mobile:
             boo = LotteService.pull_html_detail(goods.prd_no, goods.prd_opt_no)
             return boo
+        return False
 
     @classmethod
     def task_search_goods_detail(cls):

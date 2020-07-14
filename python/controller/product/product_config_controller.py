@@ -27,7 +27,7 @@ class ProductConfigController(BasicController):
         page_size=Check(type=int, null=False),
         keyword=Check(type=str)
     )
-    def list(self, params):
+    def page(self, params):
         """ 查询商品监测分页列表 """
         result = ProductConfigService.find_page(**params)
         return self.response_success(result)

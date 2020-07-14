@@ -5,6 +5,7 @@ from sanic_cors import CORS
 
 from config import appdef, appmode
 from controller.demo.demo_controller import DemoController
+from controller.product.goods_controller import GoodsController
 from controller.product.product_config_controller import ProductConfigController
 from task.task import Task
 
@@ -23,16 +24,18 @@ async def http_handler(request, module, action):
         process = DemoController
     if module == 'product_config':
         process = ProductConfigController
+    if module == 'goods':
+        process = GoodsController
     return process(request, action).process()
 
 
 @app.listener('after_server_start')
-async def notify_server_started(app, loop):
+async def notify_server_started(_app, loop):
     print('Server successfully started!')
 
 
 @app.listener('after_server_stop')
-async def close_db(app, loop):
+async def close_db(_app, loop):
     appdef.db_close()
 
 

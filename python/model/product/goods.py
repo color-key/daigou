@@ -31,6 +31,6 @@ class Goods(BaseModel):
     # 是否被删除
     deleted = BooleanField(default=False)
     # 更新时间
-    update_time = DateTimeField(null=True)
+    update_time = DateTimeField(default=datetime.now())
     # 创建时间
     create_time = DateTimeField(default=datetime.now())
