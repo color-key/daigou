@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
+
 from peewee import JOIN
 
 from libs.mysql_extend import MysqlExtend
@@ -49,3 +51,10 @@ class UserGoodsService(BaseService):
             ug['website_type_str'] = WebsiteTypeEnum.title_with_value(ug['website_type'])
 
         return dict(total_page=total_page, count=count, page=page, data_list=ug_list)
+
+    @classmethod
+    def delete(cls, **params):
+        query = UserGoods.get_by_id(params['id'])
+        query.deleted = True
+        query.update_time = datetime.now()
+        query.save()
