@@ -1,9 +1,9 @@
-name: python ci
+name: ci
 
 on:
   push:
     branches:
-      - python
+      - production
 
 jobs:
   build-and-deploy-to-server:
