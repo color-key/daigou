@@ -1,9 +1,0 @@
-[
-  {
-    "path": "api",
-    "target": "https://test.test.dev/api",
-    "changeOrigin": true,
-    "secure": false,
-    "cookiePathRewrite": "/api"
-  }
-]
