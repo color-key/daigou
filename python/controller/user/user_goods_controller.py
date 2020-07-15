@@ -14,8 +14,12 @@ class UserGoodsController(BasicController):
     )
     def find_goods_page(self, params):
         """ 查询用户关注商品 """
-        result = UserGoodsService.find_goods_page_by_user_id(**params)
-        return self.response_success(result)
+        try:
+            result = UserGoodsService.find_goods_page_by_user_id(**params)
+            return self.response_success(result)
+        except Exception as e:
+            print(e)
+            return self.response_fail(HttpCode.fail, '查询异常:%s' % e)
 
     @parameters(
         user_id=Check(type=int, null=False),
