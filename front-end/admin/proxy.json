@@ -1,0 +1,23 @@
+[
+  {
+    "path": "api",
+    "target": "https://huashi.faycz.com/",
+    "changeOrigin": true,
+    "secure": false,
+    "cookiePathRewrite": "/"
+  },
+  {
+    "path": "test-api",
+    "target": "http://localhost:3000/",
+    "changeOrigin": false,
+    "secure": false,
+    "cookiePathRewrite": "/"
+  },
+  {
+    "path": "oss",
+    "target": "http://121.36.218.101:3001/ossUpload",
+    "changeOrigin": false,
+    "secure": false,
+    "cookiePathRewrite": "/"
+  }
+]
