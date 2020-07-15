@@ -1,0 +1,7 @@
+apscheduler
+sanic
+sanic_cors
+peewee
+redis
+requests
+lxml
