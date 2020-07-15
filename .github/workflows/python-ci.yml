@@ -3,7 +3,7 @@ name: python ci
 on:
   push:
     branches:
-      - python
+      - server
 
 jobs:
   build-and-deploy-to-server:
