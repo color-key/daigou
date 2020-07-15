@@ -1,0 +1,39 @@
+name: python ci
+
+on:
+  push:
+    branches:
+      - python
+
+jobs:
+  build-and-deploy-to-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Deploy python to Server
+        uses: easingthemes/ssh-deploy@v2.1.2
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: '-rltgoDzvO --delete'
+          SOURCE: 'python/'
+          REMOTE_HOST: ${{ secrets.SERVER_HOST_NAME }}
+          REMOTE_USER: ${{ secrets.SERVER_USER_NAME }}
+          TARGET: ${{ secrets.SERVER_PYTHON_TARGET }}
+
+      - name: ssh-agent
+        uses: webfactory/ssh-agent@v0.1.1
+        with:
+          ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
+        env:
+          SERVER_HOST_NAME: ${{ secrets.SERVER_HOST_NAME }}
+
+      - name: Setup knownhosts
+        run: ssh-keyscan ${{ secrets.SERVER_HOST_NAME }} >> ~/.ssh/known_hosts
+
+      - name: Run SSH Command To build python server
+        run: ssh root@${{ secrets.SERVER_HOST_NAME }} "(docker stop daigou-python || true) && (docker rm daigou-python || true) && (docker rmi daigou-python || true) && cd /fay/service/daigou/python/ && docker build -t daigou-python . && docker run --restart=always -d -p 9090:9090 --name daigou-python daigou-python"
+      
+
+  

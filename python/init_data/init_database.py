@@ -9,8 +9,8 @@ from model.user.user_notice_record import UserNoticeRecord
 
 
 def create_db():
-    # appdef.db_purchase.create_tables([User, WebsiteInfo, ProductConfig, Goods, UserGoods, UserNoticeRecord])
-    appdef.db_purchase.create_tables([UserGoods, UserNoticeRecord])
+    appdef.db_purchase.create_tables([User, WebsiteInfo, ProductConfig, Goods, UserGoods, UserNoticeRecord])
+    # appdef.db_purchase.create_tables([UserGoods, UserNoticeRecord])
 
 
 def init_user():
@@ -105,7 +105,7 @@ def init_website_info():
     website_info_12.save()
 
 
-create_db()
+# create_db()
 # init_user()
 # init_product_config()
 # init_website_info()

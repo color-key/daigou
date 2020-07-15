@@ -9,6 +9,16 @@ class UserGoodsController(BasicController):
 
     @parameters(
         user_id=Check(type=int, null=False),
+        page=Check(type=int, null=False),
+        page_size=Check(type=int, null=False),
+    )
+    def find_goods_page(self, params):
+        """ 查询用户关注商品 """
+        result = UserGoodsService.find_goods_page_by_user_id(**params)
+        return self.response_success(result)
+
+    @parameters(
+        user_id=Check(type=int, null=False),
         goods_id=Check(type=int, null=False),
     )
     def create(self, params):
@@ -20,11 +30,9 @@ class UserGoodsController(BasicController):
             return self.response_fail(HttpCode.fail, value)
 
     @parameters(
-        user_id=Check(type=int, null=False),
-        page=Check(type=int, null=False),
-        page_size=Check(type=int, null=False),
+        id=Check(type=int, null=False),
     )
-    def find_goods_page(self, params):
-        """ 查询用户关注商品 """
-        result = UserGoodsService.find_goods_page_by_user_id(**params)
-        return self.response_success(result)
+    def delete(self, params):
+        """ 用户删除监测商品 """
+        UserGoodsService.delete(**params)
+        return self.response_success()
