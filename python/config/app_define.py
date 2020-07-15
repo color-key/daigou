@@ -14,7 +14,7 @@ class AppDefine(object):
         ),
         prod=dict(
             host='0.0.0.0',
-            port='80'
+            port='9090'
         )
     )
 
@@ -28,6 +28,15 @@ class AppDefine(object):
                 password='123456'
             )
         ],
+        # dev=[
+        #     dict(
+        #         name='daigou',
+        #         host='121.36.218.101',
+        #         port=3306,
+        #         user='root',
+        #         password='Mysql@8848'
+        #     )
+        # ],
         prod=[
             dict(
                 name='daigou',
