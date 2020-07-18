@@ -10,8 +10,11 @@ white_router_list = [
     '/api/product_config/delete',
     '/api/goods/update_goods_by_config_id',
     '/api/goods/page',
+    # todo to_delete
+    '/api/goods/search_detail',
     '/api/goods/find_detail_by_id',
     '/api/user_goods/find_goods_page',
     '/api/user_goods/create',
     '/api/user_goods/delete',
+    '/api/user/page',
 ]

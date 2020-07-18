@@ -1,6 +1,6 @@
 #FROM taoliu/gunicorn3
 FROM python:3.7.7
-#ENV MODE=prod
+ENV MODE=prod
 ADD . /sanic_temp1
 
 WORKDIR /sanic_temp1
