@@ -10,10 +10,8 @@ from model.user.user_notice_record_latest import UserNoticeRecordLatest
 
 
 def create_db():
-    # appdef.db_purchase.drop_tables([User, WebsiteInfo, ProductConfig, Goods, UserGoods, UserNoticeRecord, UserNoticeRecordLatest])
-    # appdef.db_purchase.create_tables([User, WebsiteInfo, ProductConfig, Goods, UserGoods, UserNoticeRecord, UserNoticeRecordLatest])
-    appdef.db_purchase.drop_tables([UserGoods, UserNoticeRecord])
-    appdef.db_purchase.create_tables([UserGoods,  UserNoticeRecord])
+    appdef.db_purchase.drop_tables([User, WebsiteInfo, ProductConfig, Goods, UserGoods, UserNoticeRecord, UserNoticeRecordLatest])
+    appdef.db_purchase.create_tables([User, WebsiteInfo, ProductConfig, Goods, UserGoods, UserNoticeRecord, UserNoticeRecordLatest])
 
 
 def init_user():
@@ -22,6 +20,12 @@ def init_user():
     user.mobile = '13771801234'
     user.address = '地址'
     user.save()
+
+    user2 = User()
+    user2.name = '韩梅梅'
+    user2.mobile = '13771801204'
+    user2.address = '地址'
+    user2.save()
 
 
 def init_product_config():

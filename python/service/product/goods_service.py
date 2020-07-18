@@ -47,10 +47,12 @@ class GoodsService(BaseService):
     @classmethod
     def update_goods(cls, product_config: ProductConfig):
         """ 更新商品库 """
-        if product_config.website_type == WebsiteTypeEnum.lottedfs_mobile:
-            """ 乐天手机网站商品更新 """
-            LotteService.pull_html_data(product_config.name, product_config.brnd_no, product_config.price_min, product_config.price_max)
-            pass
+        try:
+            if product_config.website_type == WebsiteTypeEnum.lottedfs_mobile:
+                """ 乐天手机网站商品更新 """
+                LotteService.pull_html_data(product_config.name, product_config.brnd_no, product_config.price_min, product_config.price_max)
+        except Exception as e:
+            print('更新商品库异常，异常：', e)
 
     @classmethod
     def search_goods_detail(cls, website_type: int, prd_no: str, prd_opt_no: str) -> int:

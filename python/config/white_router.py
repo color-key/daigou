@@ -16,4 +16,5 @@ white_router_list = [
     '/api/user_goods/find_goods_page',
     '/api/user_goods/create',
     '/api/user_goods/delete',
+    '/api/user/page',
 ]

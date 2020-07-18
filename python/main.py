@@ -7,6 +7,7 @@ from config import appdef, appmode
 from controller.demo.demo_controller import DemoController
 from controller.product.goods_controller import GoodsController
 from controller.product.product_config_controller import ProductConfigController
+from controller.user.user_controller import UserController
 from controller.user.user_goods_controller import UserGoodsController
 from task.task import Task
 
@@ -29,6 +30,8 @@ async def http_handler(request, module, action):
         process = GoodsController
     if module == 'user_goods':
         process = UserGoodsController
+    if module == 'user':
+        process = UserController
     return process(request, action).process()
 
 
@@ -42,16 +45,16 @@ async def close_db(_app, loop):
     appdef.db_close()
 
 
-# 每1分钟执行一次，更新查询商品详情
-# scheduler.add_job(Task.run_task_search_goods_detail, 'interval', seconds=5)
+# 每5秒执行一次，更新查询商品详情
+scheduler.add_job(Task.run_task_search_goods_detail, 'interval', seconds=5)
 # # 每天 00:07:30 执行一次， 更新商品库
-# scheduler.add_job(Task.run_task_update_goods,  'cron', hour=7, minute=30)
+scheduler.add_job(Task.run_task_update_goods,  'cron', hour=7, minute=30)
 # scheduler.add_job(Task.run_task_update_goods,  'interval', seconds=20)
 
 
 if __name__ == '__main__':
-    # if appmode != 'dev':
-    #     scheduler.start()
+    if appmode != 'dev':
+        scheduler.start()
     # scheduler.start()
 
     print("准备启动程序，项目路径：http://%s:%s" % (appconf['app']['host'], appconf['app']['port']))
