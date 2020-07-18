@@ -24,12 +24,18 @@ class UserGoodsService(BaseService):
         goods = Goods.get_by_id(goods_id)
         if not goods:
             return False, '添加关注失败，商品不存在'
+        query = UserGoods.select().where(UserGoods.user_id == user_id, UserGoods.goods_id == goods_id, UserGoods.deleted == 0).first()
+        if query:
+            return False, '添加关注失败，已关注过商品，无需重复关注'
 
         user_goods = UserGoods()
         user_goods.user_id = user_id
         user_goods.user_name = user.name
         user_goods.goods_id = goods_id
         user_goods.goods_name = goods.name
+        user_goods.website_type = goods.website_type
+        user_goods.prd_no = goods.prd_no
+        user_goods.prd_opt_no = goods.prd_opt_no
         user_goods.save()
         return True, user_goods
 

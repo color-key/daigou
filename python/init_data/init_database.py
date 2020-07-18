@@ -6,11 +6,14 @@ from model.product.website_info import WebsiteInfo
 from model.user.user import User
 from model.user.user_goods import UserGoods
 from model.user.user_notice_record import UserNoticeRecord
+from model.user.user_notice_record_latest import UserNoticeRecordLatest
 
 
 def create_db():
-    appdef.db_purchase.create_tables([User, WebsiteInfo, ProductConfig, Goods, UserGoods, UserNoticeRecord])
-    # appdef.db_purchase.create_tables([UserGoods, UserNoticeRecord])
+    # appdef.db_purchase.drop_tables([User, WebsiteInfo, ProductConfig, Goods, UserGoods, UserNoticeRecord, UserNoticeRecordLatest])
+    # appdef.db_purchase.create_tables([User, WebsiteInfo, ProductConfig, Goods, UserGoods, UserNoticeRecord, UserNoticeRecordLatest])
+    appdef.db_purchase.drop_tables([UserGoods, UserNoticeRecord])
+    appdef.db_purchase.create_tables([UserGoods,  UserNoticeRecord])
 
 
 def init_user():

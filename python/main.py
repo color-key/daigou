@@ -44,15 +44,15 @@ async def close_db(_app, loop):
 
 # 每1分钟执行一次，更新查询商品详情
 # scheduler.add_job(Task.run_task_search_goods_detail, 'interval', seconds=5)
-# 每天 00:07:30 执行一次， 更新商品库
-scheduler.add_job(Task.run_task_update_goods,  'cron', hour=7, minute=30)
+# # 每天 00:07:30 执行一次， 更新商品库
+# scheduler.add_job(Task.run_task_update_goods,  'cron', hour=7, minute=30)
 # scheduler.add_job(Task.run_task_update_goods,  'interval', seconds=20)
 
 
 if __name__ == '__main__':
     # if appmode != 'dev':
     #     scheduler.start()
-    scheduler.start()
+    # scheduler.start()
 
     print("准备启动程序，项目路径：http://%s:%s" % (appconf['app']['host'], appconf['app']['port']))
     app.run(host=appconf['app']['host'], port=appconf['app']['port'])

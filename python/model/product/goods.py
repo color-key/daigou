@@ -3,7 +3,24 @@ from datetime import datetime
 
 from peewee import *
 
+from libs.base_enum import BaseEnum
 from model import BaseModel
+
+
+class ResultCode(BaseEnum):
+    on_shelf = 200
+    off_shelf = 201
+    error = 400
+    blocked = 400
+
+    __meta__ = {
+        'title_kv': {
+            on_shelf: '上架',
+            off_shelf: '下架',
+            error: '错误',
+            blocked: '访问被阻止',
+        }
+    }
 
 
 class Goods(BaseModel):
@@ -31,6 +48,6 @@ class Goods(BaseModel):
     # 是否被删除
     deleted = BooleanField(default=False)
     # 更新时间
-    update_time = DateTimeField(default=datetime.now())
+    update_time = DateTimeField(default=datetime.now)
     # 创建时间
-    create_time = DateTimeField(default=datetime.now())
+    create_time = DateTimeField(default=datetime.now)

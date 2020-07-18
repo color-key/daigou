@@ -55,7 +55,7 @@ class ProductConfig(BaseModel):
     # 更新时间
     update_time = DateTimeField(null=True)
     # 创建时间
-    create_time = DateTimeField(default=datetime.now())
+    create_time = DateTimeField(default=datetime.now)
 
     class Meta:
         table_name = 'product_config'

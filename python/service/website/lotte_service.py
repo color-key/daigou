@@ -3,7 +3,7 @@ from datetime import datetime
 from urllib import parse
 from lxml import etree
 from libs.http_client.http_util import HttpUtil
-from model.product.goods import Goods
+from model.product.goods import Goods, ResultCode
 from model.product.product_config import WebsiteTypeEnum
 from service import BaseService
 
@@ -135,14 +135,24 @@ class LotteService(BaseService):
     @classmethod
     def pull_html_detail(cls, prdNo: str = '20000724053', prdOptNO: str = '20000892355') -> bool:
         """ 查看商品详情 """
+        print('查看商品详情，url:%s, prdNo:%s,prdOptNO:%s' % (cls.root_url + cls.detail_url, prdNo, prdOptNO))
         params = dict(prdNo=prdNo, prdOptNO=prdOptNO)
         response = HttpUtil.get_url(cls.root_url + cls.detail_url + parse.urlencode(params))
         xml_str = response.content.decode('utf-8')
         # 解析数据
         html = etree.HTML(xml_str)
         # 购买按钮 class
-        buy_btn_class = html.xpath('//div[contains(@class, "buyBtn")]')[0].attrib['class']
-        # 判断能否购买
-        if 'soldOut' in buy_btn_class:
-            return False
-        return True
+        buyBtn_html = html.xpath('//div[contains(@class, "buyBtn")]')
+        if buyBtn_html:
+            buy_btn_class = html.xpath('//div[contains(@class, "buyBtn")]')[0].attrib['class']
+            # 判断能否购买
+            if 'soldOut' in buy_btn_class:
+                return ResultCode.off_shelf
+            return ResultCode.on_shelf
+        else:
+            err_p = html.xpath('//div[@class="box"]/p')
+            if err_p and err_p[0].text == 'Access to the website is blocked.':
+                print("查看商品详情，请求错误，错误信息：%s" % err_p[0].text)
+                return ResultCode.blocked
+            else:
+                return ResultCode.error

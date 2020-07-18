@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import threading
+
 from controller.basic.basic_controller import BasicController
 from controller.basic.parameters import parameters, Check
 from service.product.goods_service import GoodsService
@@ -30,5 +32,9 @@ class GoodsController(BasicController):
     )
     def find_detail_by_id(self, params):
         """ 查询商品详情 """
-        result = GoodsService.search_goods_detail_by_id(params['id'])
-        return self.response_success(result)
+        code = GoodsService.search_goods_detail_by_id(params['id'])
+        return self.response_success(code)
+
+    def search_detail(self):
+        threading.Thread(target=GoodsService.task_search_goods_detail).start()
+        return self.response_success()
