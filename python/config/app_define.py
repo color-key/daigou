@@ -19,24 +19,24 @@ class AppDefine(object):
     )
 
     mysql = dict(
-        dev=[
-            dict(
-                name='daigou',
-                host='127.0.0.1',
-                port=3306,
-                user='root',
-                password='123456'
-            )
-        ],
         # dev=[
         #     dict(
         #         name='daigou',
-        #         host='121.36.218.101',
+        #         host='127.0.0.1',
         #         port=3306,
         #         user='root',
-        #         password='Mysql@8848'
+        #         password='123456'
         #     )
         # ],
+        dev=[
+            dict(
+                name='daigou',
+                host='121.36.218.101',
+                port=3306,
+                user='root',
+                password='Mysql@8848'
+            )
+        ],
         prod=[
             dict(
                 name='daigou',
@@ -75,9 +75,9 @@ class AppDefine(object):
         return config
 
     def db_init(self):
-        # mysql init
-        mysql_conf = self.config()['mysql'][0]
-        self.db_purchase = MySQLDatabase(mysql_conf['name'], user=mysql_conf['user'], password=mysql_conf['password'], host=mysql_conf['host'], port=mysql_conf['port'], autoconnect=True)
+        # # mysql init
+        # mysql_conf = self.config()['mysql'][0]
+        # self.db_purchase = MySQLDatabase(mysql_conf['name'], user=mysql_conf['user'], password=mysql_conf['password'], host=mysql_conf['host'], port=mysql_conf['port'], autoconnect=True)
 
         # redis init
         redis_conf = self.config()['redis']
@@ -86,4 +86,5 @@ class AppDefine(object):
 
     def db_close(self):
         self.db_purchase.close()
+        # self.db_purchase.connect()
         # self.db_redis.connection_pool.disconnect()
