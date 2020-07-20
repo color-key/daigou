@@ -43,6 +43,7 @@ async def notify_server_started(_app, loop):
 @app.listener('after_server_stop')
 async def close_db(_app, loop):
     appdef.db_close()
+    print('Server successfully stoped!')
 
 
 # 每5秒执行一次，更新查询商品详情
